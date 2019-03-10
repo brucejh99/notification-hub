@@ -1,30 +1,56 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
 import Title from '../../components/Title';
 
 const backIcon = require('../../assets/back-icon.svg');
 
-export default class CitationView extends Component {
+const styles = {
+  table: {
+    display: 'table',
+    margin: '0 25px',
+    marginTop: '25px',
+    borderCollapse: 'collapse'
+  },
+  buttonContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    margin: '20px 0px'
+  },
+  button: {
+    height: '34px',
+    width: '75px',
+    backgroundColor: 'white',
+    color: '#F69970',
+    fontSize: '14px',
+    margin: '0px 3px',
+    fontFamily: 'Nunito Sans',
+    fontWeight: '900',
+    border: '1px solid #F69970'
+  }
+}
+
+export default class CitationView extends PureComponent {
   render() {
     const {
-        website,
-        article,
-        author,
-        publisher,
-        datePublished,
-        dateRetrieved,
-        url,
-        updateWebsite,
-        updateArticle,
-        updateAuthor,
-        updatePublisher,
-        updateDatePublished,
-        updateDateRetrieved,
-        updateURL,
-        toHTMLDate,
-        updateBibliography,
-        navigateBack
+      website,
+      article,
+      author,
+      publisher,
+      datePublished,
+      dateRetrieved,
+      url,
+      updateWebsite,
+      updateArticle,
+      updateAuthor,
+      updatePublisher,
+      updateDatePublished,
+      updateDateRetrieved,
+      updateURL,
+      toHTMLDate,
+      updateBibliography,
+      navigateBack
     } = this.props;
 
     return (
@@ -47,7 +73,8 @@ export default class CitationView extends Component {
             value={website}
             onChange={(field, value) => updateWebsite(value)}
           />
-          <FormField fieldName="Article"
+          <FormField
+            fieldName="Article"
             inputType="text"
             name="article"
             value={article}
@@ -92,7 +119,8 @@ export default class CitationView extends Component {
         <div style={styles.buttonContainer}>
           <Button
             onClick={updateBibliography}
-            style={styles.button}>
+            style={styles.button}
+          >
             Update
           </Button>
         </div>

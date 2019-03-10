@@ -155,3 +155,82 @@ const styles = {
     border: '1px solid #F69970'
   }
 }
+
+export default class BibliographyView extends PureComponent {
+  render() {
+    const {
+      bibliography,
+      deleteItem,
+      editItem,
+      bibStyle,
+      updateStyle
+    } = this.props;
+
+    return (
+      <div style={styles.body}>
+        <div style={{...styles.buttonContainer, padding: '0px 28px'}}>
+          <SelectableButton
+            selected={bibStyle === 'MLA'}
+            onClick={() => updateStyle('MLA')}
+            style={styles.styleButton}
+          >
+            MLA
+          </SelectableButton>
+          <SelectableButton
+            selected={bibStyle === 'APA'}
+            onClick={() => updateStyle('APA')}
+            style={styles.styleButton}
+          >
+            APA
+          </SelectableButton>
+          <SelectableButton
+            selected={bibStyle === 'Chicago'}
+            onClick={() => updateStyle('Chicago')}
+            style={styles.styleButton}
+          >
+            Chicago
+          </SelectableButton>
+          <SelectableButton
+            selected={bibStyle === 'Harvard'}
+            onClick={() => updateStyle('Harvard')}
+            style={styles.styleButton}
+          >
+            Harvard
+          </SelectableButton>
+        </div>
+        <div style={styles.listContainer}>
+          <ScrollableArea
+            width={345}
+            height={300}
+            backgroundColor='white'
+            borderColor='#FFE455'
+            borderWidth={1}
+            curved
+          >
+            {bibliography.map(item => (
+              <CitationListItem
+                citationObject={item}
+                deleteCitation={() => deleteItem(item)}
+                editCitation={() => editItem(item)} />
+            ))}
+          </ScrollableArea>
+        </div>
+        <div style={{...styles.buttonContainer, ...styles.bottom}}>
+          <Button
+            onClick={this.props.add}
+            style={styles.bottomButton}>
+              Add
+          </Button>
+          {(document.queryCommandSupported('copy')
+            ? <Button
+              onClick={this.props.copy}
+              style={styles.bottomButton}>
+                  Copy
+            </Button>
+            : null)}
+        </div>
+        <div id="copyArea" contentEditable="true" style={styles.copyArea} />
+      </div>
+    );
+  }
+}

@@ -1,0 +1,13 @@
+.react-calendar {
+  width: 350px;
+}
+
+.react-calendar__navigation button {
+  color: #FFE455;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: black;
+}
