@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import StyledCalendar from '../../components/StyledCalendar';
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
 import Title from '../../components/Title';
@@ -10,13 +11,13 @@ const styles = {
     display: 'table',
     margin: '0 25px',
     marginTop: '25px',
-    borderCollapse: 'collapse'
+    borderCollapse: 'collapse',
   },
   buttonContainer: {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    margin: '20px 0px'
+    margin: '20px 0px',
   },
   button: {
     height: '34px',
@@ -27,9 +28,9 @@ const styles = {
     margin: '0px 3px',
     fontFamily: 'Nunito Sans',
     fontWeight: '900',
-    border: '1px solid #F69970'
-  }
-}
+    border: '1px solid #F69970',
+  },
+};
 
 export default class CitationView extends PureComponent {
   render() {
@@ -124,6 +125,7 @@ export default class CitationView extends PureComponent {
             Update
           </Button>
         </div>
+        <StyledCalendar />
       </div>
     );
   }
