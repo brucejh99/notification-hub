@@ -9,14 +9,14 @@ export default class FormField extends Component {
     onFieldChange = (event) => {
       const fieldName = event.target.name;
       let fieldValue = event.target.value;
-  
+
       if (fieldName === "datePublished" || fieldName === "dateRetrieved") {
         fieldValue = new Date(fieldValue);
       }
-  
+
       this.props.onChange(fieldName, fieldValue);
     }
-  
+
     render() {
       return (
         <label style={styles.tr}>

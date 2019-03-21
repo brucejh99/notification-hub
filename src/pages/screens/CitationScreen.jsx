@@ -42,6 +42,7 @@ class Citation extends Component {
         updateAuthor={citation.updateAuthor}
         updatePublisher={citation.updatePublisher}
         updateDatePublished={citation.updateDatePublished}
+        updateDateRetrieved={citation.updateDateRetrieved}
         updateURL={citation.updateURL}
         toHTMLDate={this.toHTMLDate}
         updateBibliography={this.updateBibliography}

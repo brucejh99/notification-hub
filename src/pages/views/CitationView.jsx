@@ -33,6 +33,13 @@ const styles = {
 };
 
 export default class CitationView extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showCalendar: false,
+    }
+  }
+
   render() {
     const {
       website,
@@ -97,10 +104,10 @@ export default class CitationView extends PureComponent {
           />
           <FormField
             fieldName="Date Published"
-            inputType="date"
+            inputType="button"
             name="datePublished"
             value={toHTMLDate(datePublished)}
-            onChange={(field, value) => updateDatePublished(value)}
+            onClick={() => this.setState({ showCalendar: !this.state.showCalendar })}
           />
           <FormField
             fieldName="Date Retrieved"
@@ -125,7 +132,13 @@ export default class CitationView extends PureComponent {
             Update
           </Button>
         </div>
-        <StyledCalendar />
+        { this.state.showCalendar ?
+          (
+            <StyledCalendar
+              onChange={value => updateDatePublished(value)}
+            />
+          )
+          : null }
       </div>
     );
   }
