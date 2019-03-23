@@ -1,45 +1,12 @@
 import React, { PureComponent } from 'react';
-import StyledCalendar from '../../components/StyledCalendar';
+import DateField from '../../components/DateField';
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
 import Title from '../../components/Title';
 
 const backIcon = require('../../assets/back-icon.svg');
 
-const styles = {
-  table: {
-    display: 'table',
-    margin: '0 25px',
-    marginTop: '25px',
-    borderCollapse: 'collapse',
-  },
-  buttonContainer: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    margin: '20px 0px',
-  },
-  button: {
-    height: '34px',
-    width: '75px',
-    backgroundColor: 'white',
-    color: '#F69970',
-    fontSize: '14px',
-    margin: '0px 3px',
-    fontFamily: 'Nunito Sans',
-    fontWeight: '900',
-    border: '1px solid #F69970',
-  },
-};
-
 export default class CitationView extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showCalendar: false,
-    }
-  }
-
   render() {
     const {
       website,
@@ -102,19 +69,17 @@ export default class CitationView extends PureComponent {
             value={publisher}
             onChange={(field, value) => updatePublisher(value)}
           />
-          <FormField
+          <DateField
             fieldName="Date Published"
-            inputType="button"
             name="datePublished"
-            value={toHTMLDate(datePublished)}
-            onClick={() => this.setState({ showCalendar: !this.state.showCalendar })}
+            date={toHTMLDate(datePublished)}
+            onDateChange={(field, value) => updateDatePublished(value)}
           />
-          <FormField
+          <DateField
             fieldName="Date Retrieved"
-            inputType="date"
             name="dateRetrieved"
             value={toHTMLDate(dateRetrieved)}
-            onChange={(field, value) => updateDateRetrieved(value)}
+            onDateChange={(field, value) => updateDateRetrieved(value)}
           />
           <FormField
             fieldName="URL"
@@ -132,13 +97,6 @@ export default class CitationView extends PureComponent {
             Update
           </Button>
         </div>
-        { this.state.showCalendar ?
-          (
-            <StyledCalendar
-              onChange={value => updateDatePublished(value)}
-            />
-          )
-          : null }
       </div>
     );
   }
@@ -179,6 +137,6 @@ const styles = {
     margin: '0px 3px',
     fontFamily: 'Nunito Sans',
     fontWeight: '900',
-    border: '1px solid #F69970'
+    border: '1px solid #F69970',
   }
 }

@@ -5,11 +5,13 @@ import Calendar from 'react-calendar';
 export default class StyledCalendar extends PureComponent {
   render() {
     const {
-      onClick,
+      onClickDay,
     } = this.props;
 
     return (
-      <Calendar />
+      <div>
+        <Calendar onClickDay={this.props.onClickDay}/>
+      </div>
     )
   }
 }
