@@ -1,6 +1,8 @@
 /* global chrome */
 import { types } from 'mobx-state-tree';
-import { toAPA, toMLA, toChicago, toHarvard } from '../services/Converter';
+import {
+  toAPA, toMLA, toChicago, toHarvard,
+} from '../services/Converter';
 
 const CitationStoreModel = types
   .model('Citation', {
@@ -11,9 +13,9 @@ const CitationStoreModel = types
     datePublished: types.maybeNull(types.Date),
     dateRetrieved: types.maybeNull(types.Date),
     url: types.maybeNull(types.string),
-    id: types.string
-})
-.actions(self => ({
+    id: types.string,
+  })
+  .actions(self => ({
   // note: we should probably find a cleaner way of handling this later
   // i.e. save the citation when extension closes
     saveCitation() {
@@ -25,7 +27,7 @@ const CitationStoreModel = types
         datePublished: self.datePublished,
         dateRetrieved: self.dateRetrieved,
         url: self.url,
-        id: self.id
+        id: self.id,
       }));
     },
     setCitation(citation) {
@@ -77,7 +79,7 @@ const CitationStoreModel = types
       self.url = emptyCitation.url;
       self.id = emptyCitation.id;
       localStorage.removeItem('CurrentCitation');
-    }
+    },
   }))
   .views(self => ({
     get citation() {
@@ -89,15 +91,15 @@ const CitationStoreModel = types
         datePublished: self.datePublished,
         dateRetrieved: self.dateRetrieved,
         url: self.url,
-        id: self.id
-      }
+        id: self.id,
+      };
       citation.apa = toAPA(citation);
       citation.mla = toMLA(citation);
       citation.chicago = toChicago(citation);
       citation.harvard = toHarvard(citation);
       return citation;
-    }
-}));
+    },
+  }));
 
 export const emptyCitation = {
   article: null,
@@ -108,6 +110,6 @@ export const emptyCitation = {
   dateRetrieved: null,
   url: null,
   id: '-1',
-}
+};
 
 export default CitationStoreModel;

@@ -1,6 +1,8 @@
 /* global localStorage */
 import { types } from 'mobx-state-tree';
-import { MLASort, APASort, ChicagoSort, HarvardSort } from '../services/Sorter';
+import {
+  MLASort, APASort, ChicagoSort, HarvardSort,
+} from '../services/Sorter';
 
 const Citation = types.model({
   article: types.maybeNull(types.string),
@@ -14,7 +16,7 @@ const Citation = types.model({
   apa: types.string,
   mla: types.string,
   chicago: types.string,
-  harvard: types.string
+  harvard: types.string,
 });
 
 const BibliographyStoreModel = types
@@ -22,7 +24,7 @@ const BibliographyStoreModel = types
     name: types.string,
     list: types.array(types.string),
     style: types.maybeNull(types.string),
-    citations: types.array(Citation)
+    citations: types.array(Citation),
   })
   .actions(self => ({
     addBibliography(name, style) {
@@ -32,7 +34,7 @@ const BibliographyStoreModel = types
       self.list.push(name);
       localStorage.setItem(`__${name}`, JSON.stringify({
         style,
-        citations: []
+        citations: [],
       }));
       localStorage.setItem('Bibliographies', JSON.stringify({ name: `__${name}`, list: self.list }));
     },
@@ -57,7 +59,7 @@ const BibliographyStoreModel = types
       self.list.push(self.name);
       localStorage.setItem(self.name, JSON.stringify({
         style: self.style,
-        citations: self.citations
+        citations: self.citations,
       }));
       localStorage.setItem('Bibliographies', JSON.stringify({ name: self.name, list: self.list }));
     },
@@ -65,14 +67,14 @@ const BibliographyStoreModel = types
       self.style = styleName;
       localStorage.setItem(self.name, JSON.stringify({
         style: self.style,
-        citations: self.citations
+        citations: self.citations,
       }));
     },
     addCitation(newCitation) {
       self.citations.push(newCitation);
       localStorage.setItem(self.name, JSON.stringify({
         style: self.style,
-        citations: self.citations
+        citations: self.citations,
       }));
     },
     replaceCitation(newCitation) {
@@ -80,21 +82,21 @@ const BibliographyStoreModel = types
       self.citations.push(newCitation);
       localStorage.setItem(self.name, JSON.stringify({
         style: self.style,
-        citations: self.citations
-      }))
+        citations: self.citations,
+      }));
     },
     deleteCitation(toDelete) {
       self.citations.replace(self.citations.filter(citation => citation.id !== toDelete.id));
       localStorage.setItem(self.name, JSON.stringify({
         style: self.style,
-        citations: self.citations
-      }))
-    }
-}))
-.views(self => ({
+        citations: self.citations,
+      }));
+    },
+  }))
+  .views(self => ({
     get activeBibName() {
       const bibs = localStorage.getItem('Bibliographies');
-      if(bibs === null) return null;
+      if (bibs === null) return null;
       return JSON.parse(bibs).name;
     },
     get bibList() {
@@ -115,42 +117,42 @@ const BibliographyStoreModel = types
           jsBib.sort(APASort);
           sortedBibliography = jsBib.map(item => ({
             citation: item.apa,
-            id: item.id
+            id: item.id,
           }));
           break;
         case 'MLA':
           jsBib.sort(MLASort);
           sortedBibliography = jsBib.map(item => ({
             citation: item.mla,
-            id: item.id
+            id: item.id,
           }));
           break;
         case 'Chicago':
           jsBib.sort(ChicagoSort);
           sortedBibliography = jsBib.map(item => ({
             citation: item.chicago,
-            id: item.id
+            id: item.id,
           }));
           break;
         case 'Harvard':
           jsBib.sort(HarvardSort);
           sortedBibliography = jsBib.map(item => ({
             citation: item.harvard,
-            id: item.id
+            id: item.id,
           }));
           break;
         default:
           sortedBibliography = ['Error: select a valid style'];
       }
       return sortedBibliography;
-    }
+    },
   }));
 
 export const emptyBibliography = {
   name: 'Untitled',
   style: null,
   citations: [],
-  list: []
-}
+  list: [],
+};
 
 export default BibliographyStoreModel;

@@ -5,11 +5,11 @@ const NavigationModel = types
   .model('Navigation', {
     bibliographyListPage: types.boolean,
     bibliographyPage: types.boolean,
-    citationPage: types.boolean
+    citationPage: types.boolean,
   })
   .actions(self => ({
     navigate(pageName) {
-      switch(pageName) {
+      switch (pageName) {
         case 'BibliographyList':
           self.bibliographyListPage = true;
           self.bibliographyPage = false;
@@ -33,22 +33,22 @@ const NavigationModel = types
       const newState = {
         bibliographyListPage: self.bibliographyListPage,
         bibliographyPage: self.bibliographyPage,
-        citationPage: self.citationPage
+        citationPage: self.citationPage,
       };
       localStorage.setItem('PersistentState', JSON.stringify(newState));
-    }
-}))
-.views(self => ({
+    },
+  }))
+  .views(self => ({
     get page() {
       const { bibliographyListPage, bibliographyPage, citationPage } = self;
       return { bibliographyListPage, bibliographyPage, citationPage };
-    }
+    },
   }));
 
 export const defaultView = {
   bibliographyListPage: true,
   bibliographyPage: false,
-  citationPage: false
-}
+  citationPage: false,
+};
 
 export default NavigationModel;
