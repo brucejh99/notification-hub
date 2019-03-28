@@ -2,6 +2,7 @@
   width: 300px;
   margin: auto;
   position: absolute;
+  right: 84px;
 }
 
 .react-calendar__navigation button {

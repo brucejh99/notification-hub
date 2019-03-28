@@ -26,11 +26,6 @@ export default class DateField extends PureComponent {
   }
 
   render() {
-    const {
-      date,
-      onDateChange
-    } = this.props;
-
     return (
         <label style={styles.tr}>
           <span style={{...styles.td, ...styles.tableName}}>{this.props.fieldName}</span>
