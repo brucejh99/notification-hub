@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
-import DateField from '../../components/DateField';
-import FormField from '../../components/FormField';
-import Button from '../../components/Button';
-import Title from '../../components/Title';
+import {
+  DateField,
+  FormField,
+  Button,
+  Title
+} from '../../components';
 
 const backIcon = require('../../assets/back-icon.svg');
 
@@ -107,12 +109,12 @@ const styles = {
     width: '400px',
     height: '70px',
     display: 'flex',
-    alignItems: 'center',
-    padding: '0px 17px'
+    alignItems: 'center'
   },
   backButton: {
     height: '18.5px',
     width: '22px',
+    marginLeft: '17px',
     marginRight: '10px',
     cursor: 'pointer'
   },

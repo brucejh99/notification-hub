@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import ScrollableArea from '../../components/ScrollableArea';
-import ExpandableButton from '../../components/ExpandableButton';
+import { ScrollableArea, ExpandableButton } from '../../components';
 
 const styles = {
   body: {

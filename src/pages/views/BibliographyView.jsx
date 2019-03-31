@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
-import Title from '../../components/Title';
-import Button from '../../components/Button';
-import Dropdown from '../../components/Dropdown';
-import SelectableButton from '../../components/SelectableButton';
-import ScrollableArea from '../../components/ScrollableArea';
-import CitationListItem from '../../components/CitationListItem';
+import {
+  Title,
+  Button,
+  Dropdown,
+  SelectableButton,
+  ScrollableArea,
+  CitationListItem
+} from '../../components';
 
 export default class BibliographyView extends PureComponent {
   render() {
