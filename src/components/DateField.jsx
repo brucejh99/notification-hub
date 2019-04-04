@@ -26,6 +26,13 @@ export default class DateField extends PureComponent {
   }
 
   render() {
+    const calendarDisplay = (
+      <div>
+        <StyledCalendar onClickDay={this.onClickDay} />
+        <div style={styles.dimmed} onClick={() => this.setState({ showCalendar: false })} />
+      </div>
+    )
+
     return (
         <label style={styles.tr}>
           <span style={{...styles.td, ...styles.tableName}}>{this.props.fieldName}</span>
@@ -38,10 +45,10 @@ export default class DateField extends PureComponent {
               placeholder={this.props.fieldName}
               value={new Date(this.state.date).toISOString().split("T")[0]}
               readonly
-              onClick={() => this.setState(prevState => ({ showCalendar: !prevState.showCalendar}))}
+              onClick={() => this.setState({ showCalendar: true})}
               style={styles.textbox}
             />
-            { this.state.showCalendar ? <StyledCalendar onClickDay={this.onClickDay} /> : null }
+            { this.state.showCalendar ? calendarDisplay : null }
           </span>
         </label>
 
@@ -68,5 +75,14 @@ const styles = {
     padding: '5px',
     border: '1px solid #FFE455',
     borderRadius: '0px 10px 0px 10px',
+  },
+  dimmed: {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    right: '0',
+    bottom: '0',
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    zIndex: '2',
   },
 }
