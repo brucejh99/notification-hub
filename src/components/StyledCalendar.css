@@ -1,19 +1,16 @@
 .react-calendar {
-  width: 300px;
-  margin: auto;
+  max-width: 150%;
   position: absolute;
-  right: 84px;
-}
-
-.react-calendar__navigation button {
-  font-size: 16px;
-  font-weight: bold;
+  top: -261px;
+  left: -42.5px;
+  z-index: 3;
 }
 
 .react-calendar__navigation__label {
   color: #FFE455;
+  font-weight: bold;
 }
 
 .react-calendar__month-view__days__day--weekend {
-    color: black;
+  color: black;
 }

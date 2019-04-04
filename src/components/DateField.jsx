@@ -20,8 +20,8 @@ export default class DateField extends PureComponent {
   onClickDay = (newDate) => {
     this.props.onDateChange(this.props.fieldName, newDate);
     this.setState({
-      showCalendar: false,
       date: newDate,
+      showCalendar: false,
     });
   }
 
@@ -29,22 +29,19 @@ export default class DateField extends PureComponent {
     return (
         <label style={styles.tr}>
           <span style={{...styles.td, ...styles.tableName}}>{this.props.fieldName}</span>
-          <span style={styles.td}>
+          <span style={{...styles.td, ...styles.tableField}}
+                onClick={e => e.preventDefault()}
+          >
             <input
               type="text"
               name={this.props.name}
               placeholder={this.props.fieldName}
               value={new Date(this.state.date).toISOString().split("T")[0]}
-              disabled
+              readonly
+              onClick={() => this.setState(prevState => ({ showCalendar: !prevState.showCalendar}))}
               style={styles.textbox}
             />
-            <Button
-              onClick={() => this.setState(prevState => ({ showCalendar: !prevState.showCalendar }))}
-              style={styles.button}
-            >
-            C
-            </Button>
-            { this.state.showCalendar ? <StyledCalendar onClickDay={this.onClickDay}/> : null }
+            { this.state.showCalendar ? <StyledCalendar onClickDay={this.onClickDay} /> : null }
           </span>
         </label>
 
@@ -56,9 +53,11 @@ const styles = {
   tr: {
     display: 'table-row',
     borderBottom: '15px solid transparent',
+    position: 'relative',
   },
   td: {
     display: 'table-cell',
+    position: 'relative',
   },
   tableName: {
     width: '90px',
@@ -70,15 +69,4 @@ const styles = {
     border: '1px solid #FFE455',
     borderRadius: '0px 10px 0px 10px',
   },
-  button: {
-    height: '30px',
-    width: '30px',
-    backgroundColor: 'white',
-    color: '#F69970',
-    fontSize: '14px',
-    margin: '0px 3px',
-    fontFamily: 'Nunito Sans',
-    fontWeight: '900',
-    border: '1px solid #F69970',
-  }
 }

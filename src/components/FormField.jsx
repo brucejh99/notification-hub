@@ -35,19 +35,19 @@ export default class FormField extends Component {
 const styles = {
   tr: {
     display: 'table-row',
-    borderBottom: '15px solid transparent'
+    borderBottom: '15px solid transparent',
   },
   td: {
-    display: 'table-cell'
+    display: 'table-cell',
   },
   tableName: {
     width: '90px',
     paddingRight: '20px',
-    textAlign: 'left'
+    textAlign: 'left',
   },
   textbox: {
     padding: '5px',
     border: '1px solid #FFE455',
-    borderRadius: '0px 10px 0px 10px'
+    borderRadius: '0px 10px 0px 10px',
   }
 }

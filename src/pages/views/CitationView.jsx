@@ -109,26 +109,26 @@ const styles = {
     width: '400px',
     height: '70px',
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   backButton: {
     height: '18.5px',
     width: '22px',
     marginLeft: '17px',
     marginRight: '10px',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   table: {
     display: 'table',
     margin: '0 30px',
     marginTop: '25px',
-    borderCollapse: 'collapse'
+    borderCollapse: 'collapse',
   },
   buttonContainer: {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    margin: '20px 0px'
+    margin: '20px 0px',
   },
   button: {
     height: '34px',
