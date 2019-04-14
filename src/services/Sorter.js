@@ -3,6 +3,8 @@ const { toWords } = require('number-to-words');
 const titleExceptions = ['A', 'a', 'An', 'an', 'The', 'the'];
 const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
+// Remove any leading formatting so that comparison for alphanumeric order
+// takes the first alphanumeric character
 function standardizeFormat(citation) {
   if (citation[0] === '"') {
     return standardizeFormat(citation.substring(1, citation.length));
@@ -14,7 +16,8 @@ function standardizeFormat(citation) {
   return citation;
 }
 
-// For number comparison since localeCompare does string comparison and only considers the first digit
+// For number comparison since localeCompare does string comparison and only
+// considers the first digit
 function getStartNumber(citation) {
   if (digits.includes(citation[0])) {
     let i = 0;
