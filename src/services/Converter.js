@@ -3,14 +3,24 @@ const monthName = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
 
+function replaceAngleBrackets(data) {
+  const newData = {};
+  newData.author = data.author ? data.author.replace(/</g, '&lt;') : undefined;
+  newData.date = data.datePublished || undefined;
+  newData.publisher = data.publisher ? data.publisher.replace(/</g, '&lt;') : undefined;
+  newData.website = data.website ? data.website.replace(/</g, '&lt;') : undefined;
+  newData.title = data.article ? data.article.replace(/</g, '&lt;') : undefined;
+  newData.dateAccessed = data.dateRetrieved || undefined;
+  newData.url = data.url ? data.url.replace(/</g, '&lt;') : '';
+  return newData;
+}
+
 export function toAPA(data) {
   let citation = '';
-  const author = data.author || undefined;
-  const date = data.datePublished || undefined;
-  const publisher = data.publisher || undefined;
-  const title = data.article || undefined;
-  const dateAccessed = data.dateRetrieved || undefined;
-  const url = data.url || '';
+  const {
+    author, date, publisher, title, dateAccessed, url
+  } = replaceAngleBrackets(data);
+
   if (author) {
     const nameArr = author.split(' ');
     if (nameArr.length === 1) {
@@ -49,12 +59,10 @@ export function toAPA(data) {
 
 export function toMLA(data) {
   let citation = '';
-  const author = data.author || undefined;
-  const date = data.datePublished || undefined;
-  const publisher = data.publisher || undefined;
-  const website = data.website || undefined;
-  const title = data.article || undefined;
-  const url = data.url || '';
+  const {
+    author, date, publisher, website, title, url
+  } = replaceAngleBrackets(data);
+
   if (author) {
     const nameArr = author.split(' ');
     if (nameArr.length === 1) {
@@ -111,13 +119,9 @@ http://www.bibme.org/citation-guide/chicago/website/
 
 export function toChicago(data) {
   let citation = '';
-  const author = data.author || undefined;
-  const date = data.datePublished || undefined;
-  const publisher = data.publisher || undefined;
-  const website = data.website || undefined;
-  const title = data.article || undefined;
-  const dateAccessed = data.dateRetrieved || undefined;
-  const url = data.url || '';
+  const {
+    author, date, publisher, website, title, dateAccessed, url
+  } = replaceAngleBrackets(data);
 
   if (author) {
     const nameArr = author.split(' ');
@@ -180,12 +184,9 @@ https://www.mendeley.com/guides/harvard-citation-guide
 
 export function toHarvard(data) {
   let citation = '';
-  const author = data.author || undefined;
-  const date = data.datePublished || undefined;
-  const website = data.website || undefined;
-  const title = data.article || undefined;
-  const dateAccessed = data.dateRetrieved || undefined;
-  const url = data.url || '';
+  const {
+    author, date, website, title, dateAccessed, url
+  } = replaceAngleBrackets(data);
 
   if (author) {
     const nameArr = author.split(' ');
