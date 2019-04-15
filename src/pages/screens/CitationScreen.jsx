@@ -32,7 +32,7 @@ class Citation extends Component {
       <CitationView
         website={citation.citation.website}
         article={citation.citation.article}
-        author={citation.citation.author}
+        authors={citation.citation.authors}
         publisher={citation.citation.publisher}
         datePublished={citation.citation.datePublished}
         dateRetrieved={citation.citation.dateRetrieved}

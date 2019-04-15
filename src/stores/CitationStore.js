@@ -7,7 +7,7 @@ import {
 const CitationStoreModel = types
   .model('Citation', {
     article: types.maybeNull(types.string),
-    author: types.maybeNull(types.string),
+    authors: types.optional(types.array(types.string), []),
     website: types.maybeNull(types.string),
     publisher: types.maybeNull(types.string),
     datePublished: types.maybeNull(types.Date),
@@ -21,7 +21,7 @@ const CitationStoreModel = types
     saveCitation() {
       localStorage.setItem('CurrentCitation', JSON.stringify({
         article: self.article,
-        author: self.author,
+        authors: self.authors,
         website: self.website,
         publisher: self.publisher,
         datePublished: self.datePublished,
@@ -32,7 +32,7 @@ const CitationStoreModel = types
     },
     setCitation(citation) {
       self.article = citation.article;
-      self.author = citation.author;
+      self.authors = citation.authors.slice(); // copy by value, not reference, for display in CitationView
       self.website = citation.website;
       self.publisher = citation.publisher;
       self.datePublished = citation.datePublished ? new Date(citation.datePublished) : null;
@@ -46,7 +46,7 @@ const CitationStoreModel = types
       this.saveCitation();
     },
     updateAuthor(name) {
-      self.author = name;
+      self.authors[0] = name;
       this.saveCitation();
     },
     updateWebsite(site) {
@@ -71,7 +71,7 @@ const CitationStoreModel = types
     },
     clearCitation() {
       self.article = emptyCitation.article;
-      self.author = emptyCitation.author;
+      self.authors = emptyCitation.authors;
       self.website = emptyCitation.website;
       self.publisher = emptyCitation.publisher;
       self.datePublished = emptyCitation.datePublished;
@@ -85,7 +85,7 @@ const CitationStoreModel = types
     get citation() {
       const citation = {
         article: self.article,
-        author: self.author,
+        authors: self.authors.slice(), // copy by value, not reference, for mobx
         website: self.website,
         publisher: self.publisher,
         datePublished: self.datePublished,
@@ -103,7 +103,7 @@ const CitationStoreModel = types
 
 export const emptyCitation = {
   article: null,
-  author: null,
+  authors: [],
   website: null,
   publisher: null,
   datePublished: null,

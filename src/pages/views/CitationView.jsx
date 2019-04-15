@@ -13,7 +13,7 @@ export default class CitationView extends PureComponent {
     const {
       website,
       article,
-      author,
+      authors,
       publisher,
       datePublished,
       dateRetrieved,
@@ -61,7 +61,7 @@ export default class CitationView extends PureComponent {
             fieldName="Author"
             inputType="text"
             name="author"
-            value={author}
+            value={authors[0]}
             onChange={(field, value) => updateAuthor(value)}
           />
           <FormField

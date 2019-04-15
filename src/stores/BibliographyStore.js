@@ -6,7 +6,7 @@ import {
 
 const Citation = types.model({
   article: types.maybeNull(types.string),
-  author: types.maybeNull(types.string),
+  authors: types.optional(types.array(types.string), []),
   publisher: types.maybeNull(types.string),
   website: types.maybeNull(types.string),
   datePublished: types.maybeNull(types.Date),

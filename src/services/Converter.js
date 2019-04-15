@@ -5,7 +5,7 @@ const monthName = ['January', 'February', 'March', 'April', 'May', 'June',
 
 function replaceAngleBrackets(data) {
   const newData = {};
-  newData.author = data.author ? data.author.replace(/</g, '&lt;') : undefined;
+  newData.authors = data.authors.map(author => author.replace(/</g, '&lt;'));
   newData.date = data.datePublished || undefined;
   newData.publisher = data.publisher ? data.publisher.replace(/</g, '&lt;') : undefined;
   newData.website = data.website ? data.website.replace(/</g, '&lt;') : undefined;
@@ -18,8 +18,9 @@ function replaceAngleBrackets(data) {
 export function toAPA(data) {
   let citation = '';
   const {
-    author, date, publisher, title, dateAccessed, url
+    authors, date, publisher, title, dateAccessed, url
   } = replaceAngleBrackets(data);
+  const author = authors[0];
 
   if (author) {
     const nameArr = author.split(' ');
@@ -60,8 +61,9 @@ export function toAPA(data) {
 export function toMLA(data) {
   let citation = '';
   const {
-    author, date, publisher, website, title, url
+    authors, date, publisher, website, title, url
   } = replaceAngleBrackets(data);
+  const author = authors[0];
 
   if (author) {
     const nameArr = author.split(' ');
@@ -120,8 +122,9 @@ http://www.bibme.org/citation-guide/chicago/website/
 export function toChicago(data) {
   let citation = '';
   const {
-    author, date, publisher, website, title, dateAccessed, url
+    authors, date, publisher, website, title, dateAccessed, url
   } = replaceAngleBrackets(data);
+  const author = authors[0];
 
   if (author) {
     const nameArr = author.split(' ');
@@ -185,8 +188,9 @@ https://www.mendeley.com/guides/harvard-citation-guide
 export function toHarvard(data) {
   let citation = '';
   const {
-    author, date, website, title, dateAccessed, url
+    authors, date, website, title, dateAccessed, url
   } = replaceAngleBrackets(data);
+  const author = authors[0];
 
   if (author) {
     const nameArr = author.split(' ');

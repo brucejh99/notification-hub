@@ -35,11 +35,17 @@ class BibliographyPage extends Component {
           metadata = await this.metascraper({ html, url });
         }
         let dateString = metadata.date;
-        if(dateString) dateString = new Date(dateString);
+        if (dateString) dateString = new Date(dateString);
+
+        const authors = [];
+        if (metadata.author) {
+          authors.push(metadata.author);
+        }
+
         const citation = {
           url: metadata.url || null,
           article: metadata.title || null,
-          author: metadata.author || null,
+          authors,
           website: metadata.publisher || null,
           publisher: null,
           datePublished: dateString || null,
