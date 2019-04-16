@@ -4,13 +4,12 @@ import BibliographyListView from '../views/BibliographyListView';
 
 class BibliographyListPage extends Component {
   state = {
-    name: ''
+    started: false,
+    name: '',
   }
 
-  onChange = (event) => {
-    const fieldName = event.target.name;
-    const fieldValue = event.target.value;
-    this.setState({ [fieldName]: fieldValue });
+  onChange = (field, value) => {
+    this.setState({ [field]: value });
   }
 
   createBibliography = (event) => {
@@ -34,8 +33,9 @@ class BibliographyListPage extends Component {
         bibliography={bibliography.bibList}
         selectBib={this.selectBibliography}
         deleteBib={bibliography.deleteBibliography}
+        started={this.state.started}
         name={this.state.name}
-        editName={this.onChange}
+        onChange={this.onChange}
         submitName={this.createBibliography}
       />
     );
