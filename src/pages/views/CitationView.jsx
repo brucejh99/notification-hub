@@ -47,6 +47,17 @@ const styles = {
     fontWeight: '900',
     border: '1px solid #F69970',
   },
+  authorButton: {
+    height: '20x',
+    width: '20px',
+    backgroundColor: 'white',
+    color: '#F69970',
+    fontSize: '14px',
+    margin: '0px 3px',
+    fontFamily: 'Nunito Sans',
+    fontWeight: '900',
+    border: '1px solid #F69970',
+  },
 };
 
 /**
@@ -58,13 +69,15 @@ const styles = {
  * @prop {Date} datePublished,
  * @prop {Date} dateRetrieved,
  * @prop {String} url,
- * @prop {Func} updateWebsite Update website string in store
- * @prop {Func} updateArticle Update article string in store
- * @prop {Func} updateAuthor Update author string in store
- * @prop {Func} updatePublisher Update publisher string in store
- * @prop {Func} updateDatePublished Update date published Date string in store
+ * @prop {Func} updateWebsite Update website String in store
+ * @prop {Func} updateArticle Update article String in store
+ * @prop {Func} addAuthor Adds a new empty author String in store
+ * @prop {Func} subractAuthor Removes last author String in store
+ * @prop {Func} updateAuthor Update author String in store
+ * @prop {Func} updatePublisher Update publisher String in store
+ * @prop {Func} updateDatePublished Update date published Date in store
  * @prop {Func} updateDateRetrieved Update date retrieved Date in store
- * @prop {Func} updateURL Update url string in store
+ * @prop {Func} updateURL Update url String in store
  * @prop {Func} toHTMLDate Convert date to readable HTML text
  * @prop {Func} updateBibliography Update bibliography Object in store
  * @prop {Func} navigateBack Function that navigates to previous screen
@@ -81,6 +94,8 @@ export default class CitationView extends PureComponent {
       url,
       updateWebsite,
       updateArticle,
+      addAuthor,
+      subtractAuthor,
       updateAuthor,
       updatePublisher,
       updateDatePublished,
@@ -127,13 +142,19 @@ export default class CitationView extends PureComponent {
             value={article}
             onChange={(field, value) => updateArticle(value)}
           />
-          <FormField
-            fieldName="Author"
-            inputType="text"
-            name="author"
-            value={authors[0]}
-            onChange={(field, value) => updateAuthor(value)}
-          />
+          { authors.map((author, index) => (
+            <FormField
+              fieldName="Author"
+              inputType="text"
+              name="author"
+              value={author}
+              onChange={(field, value) => updateAuthor(value, index)}
+            />
+          )) }
+          <Button onClick={addAuthor} style={styles.authorButton}>+</Button>
+          { authors.length > 1
+            ? <Button onClick={subtractAuthor} style={styles.authorButton}>-</Button>
+            : null }
           <FormField
             fieldName="Publisher"
             inputType="text"
@@ -184,6 +205,7 @@ CitationView.propTypes = {
   url: PropTypes.string.isRequired,
   updateWebsite: PropTypes.func.isRequired,
   updateArticle: PropTypes.func.isRequired,
+  addAuthor: PropTypes.func.isRequired,
   updateAuthor: PropTypes.func.isRequired,
   updatePublisher: PropTypes.func.isRequired,
   updateDatePublished: PropTypes.func.isRequired,
