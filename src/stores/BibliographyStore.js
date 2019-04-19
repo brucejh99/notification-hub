@@ -42,12 +42,12 @@ const BibliographyStoreModel = types
     deleteBibliography(name) {
       localStorage.removeItem(`__${name}`);
       self.list.replace(self.list.filter(bibName => bibName !== name));
-      if(self.list.length === 0) {
+      if (self.list.length === 0) {
         self.name = '';
         self.citations.replace([]);
         localStorage.clear();
         Store.navigation.navigate('BibliographyList');
-      } else if(self.name === name) {
+      } else if (self.name === name) {
         self.name = '';
         self.citations.replace([]);
         localStorage.setItem('Bibliographies', JSON.stringify({ name: '', list: self.list }));
@@ -103,7 +103,7 @@ const BibliographyStoreModel = types
   }))
   .views(self => ({
     get activeBibName() {
-      if(self.name) return self.name.substr(2);
+      if (self.name) return self.name.substr(2);
       const bibs = localStorage.getItem('Bibliographies');
       if (bibs === null) return null;
       return JSON.parse(bibs).name.substr(2);

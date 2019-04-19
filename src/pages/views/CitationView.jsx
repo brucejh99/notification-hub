@@ -1,13 +1,74 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import {
-  DateField,
-  FormField,
-  Button,
-  Title
+  DateField, FormField, Button, Title,
 } from '../../components';
 
 const backIcon = require('../../assets/back-icon.svg');
 
+const styles = {
+  header: {
+    width: '400px',
+    height: '70px',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  backButtonDiv: {
+    height: '18.5px',
+    width: '22px',
+    marginLeft: '17px',
+    marginRight: '10px',
+    cursor: 'pointer',
+  },
+  backButton: {
+    height: '18.5px',
+    width: '22px',
+  },
+  table: {
+    display: 'table',
+    margin: '0 30px',
+    marginTop: '25px',
+    borderCollapse: 'collapse',
+  },
+  buttonContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    margin: '20px 0px',
+  },
+  button: {
+    height: '34px',
+    width: '75px',
+    backgroundColor: 'white',
+    color: '#F69970',
+    fontSize: '14px',
+    margin: '0px 3px',
+    fontFamily: 'Nunito Sans',
+    fontWeight: '900',
+    border: '1px solid #F69970',
+  },
+};
+
+/**
+ * UI Clase for a Citation
+ * @prop {String} website
+ * @prop {String} article,
+ * @prop {Array} authors Array of author Strings
+ * @prop {String} publisher,
+ * @prop {Date} datePublished,
+ * @prop {Date} dateRetrieved,
+ * @prop {String} url,
+ * @prop {Func} updateWebsite Update website string in store
+ * @prop {Func} updateArticle Update article string in store
+ * @prop {Func} updateAuthor Update author string in store
+ * @prop {Func} updatePublisher Update publisher string in store
+ * @prop {Func} updateDatePublished Update date published Date string in store
+ * @prop {Func} updateDateRetrieved Update date retrieved Date in store
+ * @prop {Func} updateURL Update url string in store
+ * @prop {Func} toHTMLDate Convert date to readable HTML text
+ * @prop {Func} updateBibliography Update bibliography Object in store
+ * @prop {Func} navigateBack Function that navigates to previous screen
+ */
 export default class CitationView extends PureComponent {
   render() {
     const {
@@ -27,17 +88,26 @@ export default class CitationView extends PureComponent {
       updateURL,
       toHTMLDate,
       updateBibliography,
-      navigateBack
+      navigateBack,
     } = this.props;
 
     return (
       <div>
         <div style={styles.header}>
-          <img
-            src={backIcon}
-            alt='Back'
+          <div
+            role="button"
+            tabIndex="0"
             onClick={navigateBack}
-            style={styles.backButton} />
+            onKeyPress={navigateBack}
+            style={styles.backButtonDiv}
+          >
+            <img
+              src={backIcon}
+              alt="Back"
+              style={styles.backButton}
+            />
+          </div>
+
           <Title>
             Edit Citation
           </Title>
@@ -104,41 +174,22 @@ export default class CitationView extends PureComponent {
   }
 }
 
-const styles = {
-  header: {
-    width: '400px',
-    height: '70px',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  backButton: {
-    height: '18.5px',
-    width: '22px',
-    marginLeft: '17px',
-    marginRight: '10px',
-    cursor: 'pointer',
-  },
-  table: {
-    display: 'table',
-    margin: '0 30px',
-    marginTop: '25px',
-    borderCollapse: 'collapse',
-  },
-  buttonContainer: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    margin: '20px 0px',
-  },
-  button: {
-    height: '34px',
-    width: '75px',
-    backgroundColor: 'white',
-    color: '#F69970',
-    fontSize: '14px',
-    margin: '0px 3px',
-    fontFamily: 'Nunito Sans',
-    fontWeight: '900',
-    border: '1px solid #F69970',
-  }
-}
+CitationView.propTypes = {
+  website: PropTypes.string.isRequired,
+  article: PropTypes.string.isRequired,
+  authors: PropTypes.arrayOf(String).isRequired,
+  publisher: PropTypes.string.isRequired,
+  datePublished: PropTypes.isInstanceOf(Date).isRequired,
+  dateRetrieved: PropTypes.isInstanceOf(Date).isRequired,
+  url: PropTypes.string.isRequired,
+  updateWebsite: PropTypes.func.isRequired,
+  updateArticle: PropTypes.func.isRequired,
+  updateAuthor: PropTypes.func.isRequired,
+  updatePublisher: PropTypes.func.isRequired,
+  updateDatePublished: PropTypes.func.isRequired,
+  updateDateRetrieved: PropTypes.func.isRequired,
+  updateURL: PropTypes.func.isRequired,
+  toHTMLDate: PropTypes.func.isRequired,
+  updateBibliography: PropTypes.func.isRequired,
+  navigateBack: PropTypes.func.isRequired,
+};

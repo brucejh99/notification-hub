@@ -1,60 +1,6 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import StyledCalendar from './StyledCalendar';
-import Button from './Button';
-
-/**
- * Field class to enter bibliographic information
- * @prop {String} fieldName Name of field, shown in label and placeholder
- * @prop {String} inputType Type of input (text, date etc.)
- */
-export default class DateField extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showCalendar: false,
-      date: this.props.date || new Date(),
-     };
-  }
-
-  onClickDay = (newDate) => {
-    this.props.onDateChange(this.props.fieldName, newDate);
-    this.setState({
-      date: newDate,
-      showCalendar: false,
-    });
-  }
-
-  render() {
-    const calendarDisplay = (
-      <div>
-        <StyledCalendar onClickDay={this.onClickDay} />
-        <div style={styles.dimmed} onClick={() => this.setState({ showCalendar: false })} />
-      </div>
-    )
-
-    return (
-        <label style={styles.tr}>
-          <span style={{...styles.td, ...styles.tableName}}>{this.props.fieldName}</span>
-          <span style={{...styles.td, ...styles.tableField}}
-                onClick={e => e.preventDefault()}
-          >
-            <input
-              type="text"
-              name={this.props.name}
-              placeholder={this.props.fieldName}
-              value={new Date(this.state.date).toISOString().split("T")[0]}
-              readonly
-              onClick={() => this.setState({ showCalendar: true})}
-              style={styles.textbox}
-            />
-            { this.state.showCalendar ? calendarDisplay : null }
-          </span>
-        </label>
-
-    )
-  }
-}
 
 const styles = {
   tr: {
@@ -69,7 +15,7 @@ const styles = {
   tableName: {
     width: '90px',
     paddingRight: '20px',
-    textAlign: 'left',
+    extAlign: 'left',
   },
   textbox: {
     padding: '5px',
@@ -85,4 +31,83 @@ const styles = {
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
     zIndex: '2',
   },
+};
+
+/**
+ * Field class to enter bibliographic information
+ * @prop {String} fieldName Name of field, shown in label and placeholder
+ * @prop {String} name Name of the variable
+ * @prop {Date} date Date object, updates the date
+ * @prop {Func} onChange Handler for when date changes
+ */
+export default class DateField extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    const { date } = this.props;
+    this.state = {
+      showCalendar: false,
+      date: date || new Date(),
+    };
+  }
+
+  onClickDay = (newDate) => {
+    const { onDateChange, fieldName } = this.props;
+    onDateChange(fieldName, newDate);
+    this.setState({
+      date: newDate,
+      showCalendar: false,
+    });
+  }
+
+  dismissCalendar = () => {
+    this.setState({ showCalendar: false });
+  }
+
+  render() {
+    const { fieldName, name } = this.props;
+    const { date, showCalendar } = this.state;
+
+    const calendarDisplay = (
+      <div>
+        <StyledCalendar onClickDay={this.onClickDay} />
+        <div
+          style={styles.dimmed}
+          role="presentation"
+          onClick={this.dismissCalendar}
+          onKeyPress={this.dismissCalendar}
+        />
+      </div>
+    );
+
+    return (
+      <label htmlFor="dateFieldInput" style={styles.tr}>
+        <span style={{ ...styles.td, ...styles.tableName }}>{fieldName}</span>
+        <span
+          style={{ ...styles.td, ...styles.tableField }}
+          role="presentation"
+          onClick={e => e.preventDefault()}
+        >
+          <input
+            id="dateFieldInput"
+            type="text"
+            name={name}
+            placeholder={fieldName}
+            value={new Date(date).toISOString().split('T')[0]}
+            readOnly
+            onClick={() => this.setState({ showCalendar: true })}
+            style={styles.textbox}
+          />
+          { showCalendar ? calendarDisplay : null }
+        </span>
+      </label>
+    );
+  }
 }
+
+DateField.propTypes = {
+  fieldName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired,
+  onDateChange: PropTypes.func.isRequired,
+};

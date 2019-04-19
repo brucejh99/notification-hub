@@ -1,3 +1,5 @@
+/* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
+
 // used for reading months
 const monthName = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
@@ -18,7 +20,7 @@ function replaceAngleBrackets(data) {
 export function toAPA(data) {
   let citation = '';
   const {
-    authors, date, publisher, title, dateAccessed, url
+    authors, date, publisher, title, dateAccessed, url,
   } = replaceAngleBrackets(data);
   const author = authors[0];
 
@@ -61,7 +63,7 @@ export function toAPA(data) {
 export function toMLA(data) {
   let citation = '';
   const {
-    authors, date, publisher, website, title, url
+    authors, date, publisher, website, title, url,
   } = replaceAngleBrackets(data);
   const author = authors[0];
 
@@ -122,7 +124,7 @@ http://www.bibme.org/citation-guide/chicago/website/
 export function toChicago(data) {
   let citation = '';
   const {
-    authors, date, publisher, website, title, dateAccessed, url
+    authors, date, publisher, website, title, dateAccessed, url,
   } = replaceAngleBrackets(data);
   const author = authors[0];
 
@@ -188,7 +190,7 @@ https://www.mendeley.com/guides/harvard-citation-guide
 export function toHarvard(data) {
   let citation = '';
   const {
-    authors, date, website, title, dateAccessed, url
+    authors, date, website, title, dateAccessed, url,
   } = replaceAngleBrackets(data);
   const author = authors[0];
 
