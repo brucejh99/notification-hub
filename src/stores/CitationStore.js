@@ -32,7 +32,8 @@ const CitationStoreModel = types
     },
     setCitation(citation) {
       self.article = citation.article;
-      self.authors = citation.authors.slice(); // copy by value, not reference, for display in CitationView
+      // copy by value, not reference, for display in CitationView
+      self.authors = citation.authors.slice();
       self.website = citation.website;
       self.publisher = citation.publisher;
       self.datePublished = citation.datePublished ? new Date(citation.datePublished) : null;
@@ -45,8 +46,14 @@ const CitationStoreModel = types
       self.article = article;
       this.saveCitation();
     },
-    updateAuthor(name) {
-      self.authors[0] = name;
+    addAuthor() {
+      self.authors.push('');
+    },
+    subtractAuthor() {
+      self.authors.pop();
+    },
+    updateAuthor(name, index) {
+      self.authors[index] = name;
       this.saveCitation();
     },
     updateWebsite(site) {
@@ -103,7 +110,7 @@ const CitationStoreModel = types
 
 export const emptyCitation = {
   article: null,
-  authors: [],
+  authors: [''],
   website: null,
   publisher: null,
   datePublished: null,

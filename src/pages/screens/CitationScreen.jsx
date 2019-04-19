@@ -4,11 +4,12 @@ import { inject, observer } from 'mobx-react';
 import CitationView from '../views/CitationView';
 
 /**
- * Citation screen. All citations must have an ID so we can determine replace vs. add based on whether or not it exists
+ * Citation screen. All citations must have an ID so we can determine replace
+ * vs. add based on whether or not it exists
  */
 class Citation extends Component {
   toHTMLDate = (date) => {
-    if(date === null) return null;
+    if (date === null) return null;
     let dateString;
     try {
       dateString = new Date(date).toISOString().split("T")[0];
@@ -39,6 +40,8 @@ class Citation extends Component {
         url={citation.citation.url}
         updateWebsite={citation.updateWebsite}
         updateArticle={citation.updateArticle}
+        addAuthor={citation.addAuthor}
+        subtractAuthor={citation.subtractAuthor}
         updateAuthor={citation.updateAuthor}
         updatePublisher={citation.updatePublisher}
         updateDatePublished={citation.updateDatePublished}
@@ -47,7 +50,7 @@ class Citation extends Component {
         toHTMLDate={this.toHTMLDate}
         updateBibliography={this.updateBibliography}
         navigateBack={() => navigation.navigate('Bibliography')}
-    />
+      />
     );
   }
 }

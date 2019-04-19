@@ -31,7 +31,7 @@ export default class Button extends Component {
         onClick={onClick}
         onMouseEnter={() => this.setState({ hovered: true })}
         onMouseLeave={() => this.setState({ hovered: false })}
-        style={ hovered 
+        style={hovered 
           ? { ...this.styles.button, ...this.styles.hovered }
           : this.styles.button}>
           {children}

@@ -81,7 +81,7 @@ export default class DateField extends PureComponent {
     );
 
     return (
-      <label htmlFor="dateFieldInput" style={styles.tr}>
+      <label style={styles.tr}>
         <span style={{ ...styles.td, ...styles.tableName }}>{fieldName}</span>
         <span
           style={{ ...styles.td, ...styles.tableField }}
@@ -89,7 +89,6 @@ export default class DateField extends PureComponent {
           onClick={e => e.preventDefault()}
         >
           <input
-            id="dateFieldInput"
             type="text"
             name={name}
             placeholder={fieldName}
