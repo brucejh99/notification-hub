@@ -1,4 +1,3 @@
-/* global chrome */
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import CitationView from '../views/CitationView';
@@ -12,7 +11,7 @@ class Citation extends Component {
     if (date === null) return null;
     let dateString;
     try {
-      dateString = new Date(date).toISOString().split("T")[0];
+      [dateString] = new Date(date).toISOString().split('T');
     } catch {
       dateString = '';
     }
@@ -21,14 +20,16 @@ class Citation extends Component {
 
   updateBibliography = (e) => {
     e.preventDefault();
-    const { navigation, bibliography, citation } = this.props.store;
+    const { store } = this.props;
+    const { bibliography, citation, navigation } = store;
     bibliography.replaceCitation(citation.citation);
     citation.clearCitation();
     navigation.navigate('Bibliography');
   }
 
   render() {
-    const { citation, navigation } = this.props.store;
+    const { store } = this.props;
+    const { citation, navigation } = store;
     return (
       <CitationView
         website={citation.citation.website}

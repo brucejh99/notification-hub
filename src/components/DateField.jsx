@@ -36,7 +36,6 @@ const styles = {
 /**
  * Field class to enter bibliographic information
  * @prop {String} fieldName Name of field, shown in label and placeholder
- * @prop {String} name Name of the variable
  * @prop {Date} date Date object, updates the date
  * @prop {Func} onChange Handler for when date changes
  */
@@ -65,7 +64,7 @@ export default class DateField extends PureComponent {
   }
 
   render() {
-    const { fieldName, name } = this.props;
+    const { fieldName } = this.props;
     const { date, showCalendar } = this.state;
 
     const calendarDisplay = (
@@ -81,7 +80,7 @@ export default class DateField extends PureComponent {
     );
 
     return (
-      <label style={styles.tr}>
+      <label htmlFor="dateFieldInput" style={styles.tr}>
         <span style={{ ...styles.td, ...styles.tableName }}>{fieldName}</span>
         <span
           style={{ ...styles.td, ...styles.tableField }}
@@ -89,8 +88,9 @@ export default class DateField extends PureComponent {
           onClick={e => e.preventDefault()}
         >
           <input
+            id="dateFieldInput"
             type="text"
-            name={name}
+            name={fieldName}
             placeholder={fieldName}
             value={new Date(date).toISOString().split('T')[0]}
             readOnly
@@ -106,7 +106,6 @@ export default class DateField extends PureComponent {
 
 DateField.propTypes = {
   fieldName: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
   date: PropTypes.instanceOf(Date).isRequired,
   onDateChange: PropTypes.func.isRequired,
 };

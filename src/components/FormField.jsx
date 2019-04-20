@@ -24,8 +24,6 @@ const styles = {
 /**
  * Field class to enter bibliographic information
  * @prop {String} fieldName Name of field, shown in label and placeholder
- * @prop {String} inputType Type of input (text, date etc.)
- * @prop {String} name Name of the variable
  * @prop {String} value Value of the variable, updates the field
  * @prop {Func} onChange Handler for when value changes
  */
@@ -40,7 +38,7 @@ export default class FormField extends Component {
 
     render() {
       const {
-        fieldName, inputType, name, value,
+        fieldName, value,
       } = this.props;
 
       return (
@@ -49,8 +47,8 @@ export default class FormField extends Component {
           <span style={styles.td}>
             <input
               id="formFieldInput"
-              type={inputType}
-              name={name}
+              type="text"
+              name={fieldName}
               placeholder={fieldName}
               value={value}
               onChange={this.onFieldChange}
@@ -64,8 +62,6 @@ export default class FormField extends Component {
 
 FormField.propTypes = {
   fieldName: PropTypes.string.isRequired,
-  inputType: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

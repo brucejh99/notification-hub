@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  DateField, FormField, Button, Title,
+  AuthorField, DateField, FormField, Button, Title,
 } from '../../components';
+
 
 const backIcon = require('../../assets/back-icon.svg');
 
@@ -47,17 +48,6 @@ const styles = {
     fontWeight: '900',
     border: '1px solid #F69970',
   },
-  authorButton: {
-    height: '20x',
-    width: '20px',
-    backgroundColor: 'white',
-    color: '#F69970',
-    fontSize: '14px',
-    margin: '0px 3px',
-    fontFamily: 'Nunito Sans',
-    fontWeight: '900',
-    border: '1px solid #F69970',
-  },
 };
 
 /**
@@ -72,7 +62,7 @@ const styles = {
  * @prop {Func} updateWebsite Update website String in store
  * @prop {Func} updateArticle Update article String in store
  * @prop {Func} addAuthor Adds a new empty author String in store
- * @prop {Func} subractAuthor Removes last author String in store
+ * @prop {Func} subtractAuthor Removes last author String in store
  * @prop {Func} updateAuthor Update author String in store
  * @prop {Func} updatePublisher Update publisher String in store
  * @prop {Func} updateDatePublished Update date published Date in store
@@ -130,54 +120,42 @@ export default class CitationView extends PureComponent {
         <div style={styles.table}>
           <FormField
             fieldName="Website"
-            inputType="text"
-            name="website"
             value={website}
             onChange={(field, value) => updateWebsite(value)}
           />
           <FormField
             fieldName="Article"
-            inputType="text"
-            name="article"
             value={article}
             onChange={(field, value) => updateArticle(value)}
           />
           { authors.map((author, index) => (
-            <FormField
+            <AuthorField
               fieldName="Author"
-              inputType="text"
-              name="author"
               value={author}
+              firstAuthor={index === 0}
+              lastAuthor={index !== 0 && index === authors.length - 1}
               onChange={(field, value) => updateAuthor(value, index)}
+              addAuthor={addAuthor}
+              subtractAuthor={subtractAuthor}
             />
           )) }
-          <Button onClick={addAuthor} style={styles.authorButton}>+</Button>
-          { authors.length > 1
-            ? <Button onClick={subtractAuthor} style={styles.authorButton}>-</Button>
-            : null }
           <FormField
             fieldName="Publisher"
-            inputType="text"
-            name="publisher"
             value={publisher}
             onChange={(field, value) => updatePublisher(value)}
           />
           <DateField
             fieldName="Date Published"
-            name="datePublished"
             date={toHTMLDate(datePublished)}
             onDateChange={(field, value) => updateDatePublished(value)}
           />
           <DateField
             fieldName="Date Retrieved"
-            name="dateRetrieved"
             value={toHTMLDate(dateRetrieved)}
             onDateChange={(field, value) => updateDateRetrieved(value)}
           />
           <FormField
             fieldName="URL"
-            inputType="text"
-            name="url"
             value={url}
             onChange={(field, value) => updateURL(value)}
           />
@@ -206,6 +184,7 @@ CitationView.propTypes = {
   updateWebsite: PropTypes.func.isRequired,
   updateArticle: PropTypes.func.isRequired,
   addAuthor: PropTypes.func.isRequired,
+  subtractAuthor: PropTypes.func.isRequired,
   updateAuthor: PropTypes.func.isRequired,
   updatePublisher: PropTypes.func.isRequired,
   updateDatePublished: PropTypes.func.isRequired,

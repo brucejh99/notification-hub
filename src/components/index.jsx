@@ -1,3 +1,4 @@
+export { default as AuthorField } from './AuthorField';
 export { default as Button } from './Button';
 export { default as CitationListItem } from './CitationListItem';
 export { default as DateField } from './DateField';
