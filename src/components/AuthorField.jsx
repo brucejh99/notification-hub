@@ -21,8 +21,8 @@ const styles = {
     borderRadius: '0px 10px 0px 10px',
   },
   authorButton: {
-    height: '20x',
-    width: '20px',
+    height: '25px',
+    width: '25px',
     backgroundColor: 'white',
     color: '#F69970',
     fontSize: '14px',
@@ -37,8 +37,8 @@ const styles = {
  * Field class to enter author name
  * @prop {String} fieldName Name of field, shown in label and placeholder
  * @prop {String} value Value of the variable, updates the field
- * @prop {Bool} firstAuthor True if author is first element in array
- * @prop {Bool} lastAuthor True if author is last element in array and not first
+ * @prop {Number} index Index of author in authors array
+ * @prop {Number} authorsLength Length of authors array
  * @prop {Func} onChange Handler for when value changes
  * @prop {Func} addAuthor Adds a new empty author String in store
  * @prop {Func} subtractAuthor Removes last author String in store
@@ -54,15 +54,15 @@ export default class AuthorField extends Component {
 
     render() {
       const {
-        fieldName, value, firstAuthor, lastAuthor, addAuthor, subtractAuthor,
+        fieldName, value, index, authorsLength, addAuthor, subtractAuthor,
       } = this.props;
 
       return (
-        <label htmlFor="authorFieldInput" style={styles.tr}>
-          <span style={{ ...styles.td, ...styles.tableName }}>{firstAuthor ? 'Author' : ''}</span>
+        <label htmlFor={`fieldName ${index}`} style={styles.tr}>
+          <span style={{ ...styles.td, ...styles.tableName }}>{index === 0 ? 'Author' : ''}</span>
           <span style={styles.td}>
             <input
-              id="authorFieldInput"
+              id={`fieldName ${index}`}
               type="text"
               name={fieldName}
               placeholder={fieldName}
@@ -70,10 +70,10 @@ export default class AuthorField extends Component {
               onChange={this.onFieldChange}
               style={styles.textbox}
             />
-            { firstAuthor
+            { index === 0
               ? <Button onClick={addAuthor} style={styles.authorButton}>+</Button>
               : null }
-            { lastAuthor 
+            { index !== 0 && index === authorsLength - 1
               ? <Button onClick={subtractAuthor} style={styles.authorButton}>-</Button>
               : null }
           </span>
@@ -85,8 +85,8 @@ export default class AuthorField extends Component {
 AuthorField.propTypes = {
   fieldName: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  firstAuthor: PropTypes.bool.isRequired,
-  lastAuthor: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
+  authorsLength: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   addAuthor: PropTypes.func.isRequired,
   subtractAuthor: PropTypes.func.isRequired,

@@ -9,7 +9,7 @@ export default class Button extends Component {
     button: {
       textDecoration: 'none',
       textAlign: 'center',
-      borderRadius: '0px 10px',
+      borderRadius: '0 10px',
       outline: 'none',
       cursor: 'pointer',
       ...this.props.style

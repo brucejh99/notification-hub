@@ -18,6 +18,7 @@ const styles = {
     extAlign: 'left',
   },
   textbox: {
+    width: '150px',
     padding: '5px',
     border: '1px solid #FFE455',
     borderRadius: '0px 10px 0px 10px',
@@ -80,7 +81,7 @@ export default class DateField extends PureComponent {
     );
 
     return (
-      <label htmlFor="dateFieldInput" style={styles.tr}>
+      <label htmlFor={fieldName} style={styles.tr}>
         <span style={{ ...styles.td, ...styles.tableName }}>{fieldName}</span>
         <span
           style={{ ...styles.td, ...styles.tableField }}
@@ -88,7 +89,7 @@ export default class DateField extends PureComponent {
           onClick={e => e.preventDefault()}
         >
           <input
-            id="dateFieldInput"
+            id={fieldName}
             type="text"
             name={fieldName}
             placeholder={fieldName}

@@ -26,9 +26,9 @@ const styles = {
     width: '22px',
   },
   table: {
+    width: '100%',
     display: 'table',
-    margin: '0 30px',
-    marginTop: '25px',
+    margin: '25px 30px',
     borderCollapse: 'collapse',
   },
   buttonContainer: {
@@ -132,8 +132,8 @@ export default class CitationView extends PureComponent {
             <AuthorField
               fieldName="Author"
               value={author}
-              firstAuthor={index === 0}
-              lastAuthor={index !== 0 && index === authors.length - 1}
+              index={index}
+              authorsLength={authors.length}
               onChange={(field, value) => updateAuthor(value, index)}
               addAuthor={addAuthor}
               subtractAuthor={subtractAuthor}

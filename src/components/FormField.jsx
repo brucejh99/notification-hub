@@ -15,6 +15,7 @@ const styles = {
     textAlign: 'left',
   },
   textbox: {
+    width: '150px',
     padding: '5px',
     border: '1px solid #FFE455',
     borderRadius: '0px 10px 0px 10px',
@@ -42,11 +43,11 @@ export default class FormField extends Component {
       } = this.props;
 
       return (
-        <label htmlFor="formFieldInput" style={styles.tr}>
+        <label htmlFor={fieldName} style={styles.tr}>
           <span style={{ ...styles.td, ...styles.tableName }}>{fieldName}</span>
           <span style={styles.td}>
             <input
-              id="formFieldInput"
+              id={fieldName}
               type="text"
               name={fieldName}
               placeholder={fieldName}
