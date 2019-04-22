@@ -1,7 +1,7 @@
 .react-calendar {
-  max-width: 150%;
+  max-width: 400px;
   position: absolute;
-  top: -240px;
+  top: -235px;
   left: -115px;
   z-index: 3;
 }
@@ -13,4 +13,8 @@
 
 .react-calendar__month-view__days__day--weekend {
   color: black;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #969696;
 }
