@@ -7,105 +7,6 @@ import {
   CitationListItem,
 } from '../../components';
 
-export default class BibliographyView extends PureComponent {
-  render() {
-    const {
-      bibliographyName,
-      bibliography,
-      bibliographyList,
-      onSelectBibliography,
-      addCitation,
-      copy,
-      deleteItem,
-      editItem,
-      bibStyle,
-      updateStyle,
-      addBibliography,
-      deleteBibliography
-    } = this.props;
-
-    return (
-      <div style={styles.body}>
-        <Dropdown
-          value={bibliographyName}
-          options={bibliographyList}
-          onAdd={addBibliography}
-          onDelete={deleteBibliography}
-          onSelectBibliography={onSelectBibliography}
-          style={styles.dropdown}
-        />
-        <div style={{...styles.buttonContainer, padding: '0px 28px'}}>
-          <SelectableButton
-            selected={bibStyle === 'MLA'}
-            onClick={() => updateStyle('MLA')}
-            style={styles.styleButton}
-          >
-            MLA
-          </SelectableButton>
-          <SelectableButton
-            selected={bibStyle === 'APA'}
-            onClick={() => updateStyle('APA')}
-            style={styles.styleButton}
-          >
-            APA
-          </SelectableButton>
-          <SelectableButton
-            selected={bibStyle === 'Chicago'}
-            onClick={() => updateStyle('Chicago')}
-            style={styles.styleButton}
-          >
-            Chicago
-          </SelectableButton>
-          <SelectableButton
-            selected={bibStyle === 'Harvard'}
-            onClick={() => updateStyle('Harvard')}
-            style={styles.styleButton}
-          >
-            Harvard
-          </SelectableButton>
-        </div>
-        <div style={styles.listContainer}>
-          <ScrollableArea
-            width={345}
-            height={300}
-            backgroundColor="white"
-            borderColor="#FFE455"
-            borderWidth={1}
-            curved
-          >
-            {bibliography.map(item => (
-              <CitationListItem
-                citationObject={item}
-                deleteCitation={() => deleteItem(item)}
-                editCitation={() => editItem(item)} />
-            ))
-            }
-          </ScrollableArea>
-        </div>
-          <div style={{...styles.buttonContainer, ...styles.bottom}}>
-            <Button
-              onClick={addCitation}
-              style={styles.bottomButton}
-            >
-                Add
-            </Button>
-            {document.queryCommandSupported('copy')
-              ? (
-                <Button
-                  onClick={copy}
-                  style={styles.bottomButton}
-                >
-                    Copy
-                </Button>
-              )
-              : null}
-          </div>
-        <div id="copyArea" contentEditable="true" style={styles.copyArea} />
-      </div>
-    );
-  }
-}
-
 const styles = {
   body: {
     width: '400px',
@@ -170,3 +71,103 @@ const styles = {
     border: '1px solid #F69970',
   },
 };
+
+export default class BibliographyView extends PureComponent {
+  render() {
+    const {
+      bibliographyName,
+      bibliography,
+      bibliographyList,
+      onSelectBibliography,
+      addCitation,
+      copy,
+      deleteItem,
+      editItem,
+      bibStyle,
+      updateStyle,
+      addBibliography,
+      deleteBibliography
+    } = this.props;
+
+    return (
+      <div style={styles.body}>
+        <Dropdown
+          value={bibliographyName}
+          options={bibliographyList}
+          onAdd={addBibliography}
+          onDelete={deleteBibliography}
+          onSelectBibliography={onSelectBibliography}
+          style={styles.dropdown}
+        />
+        <div style={{ ...styles.buttonContainer, padding: '0px 28px' }}>
+          <SelectableButton
+            selected={bibStyle === 'MLA'}
+            onClick={() => updateStyle('MLA')}
+            style={styles.styleButton}
+          >
+            MLA
+          </SelectableButton>
+          <SelectableButton
+            selected={bibStyle === 'APA'}
+            onClick={() => updateStyle('APA')}
+            style={styles.styleButton}
+          >
+            APA
+          </SelectableButton>
+          <SelectableButton
+            selected={bibStyle === 'Chicago'}
+            onClick={() => updateStyle('Chicago')}
+            style={styles.styleButton}
+          >
+            Chicago
+          </SelectableButton>
+          <SelectableButton
+            selected={bibStyle === 'Harvard'}
+            onClick={() => updateStyle('Harvard')}
+            style={styles.styleButton}
+          >
+            Harvard
+          </SelectableButton>
+        </div>
+        <div style={styles.listContainer}>
+          <ScrollableArea
+            width={345}
+            height={300}
+            backgroundColor="white"
+            borderColor="#FFE455"
+            borderWidth={1}
+            curved
+          >
+            {bibliography.map(item => (
+              <CitationListItem
+                citationObject={item}
+                deleteCitation={() => deleteItem(item)}
+                editCitation={() => editItem(item)}
+              />
+            ))
+            }
+          </ScrollableArea>
+        </div>
+        <div style={{ ...styles.buttonContainer, ...styles.bottom }}>
+          <Button
+            onClick={addCitation}
+            style={styles.bottomButton}
+          >
+              Add
+          </Button>
+          {document.queryCommandSupported('copy')
+            ? (
+              <Button
+                onClick={copy}
+                style={styles.bottomButton}
+              >
+                  Copy
+              </Button>
+            )
+            : null}
+        </div>
+        <div id="copyArea" contentEditable="true" style={styles.copyArea} />
+      </div>
+    );
+  }
+}

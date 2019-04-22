@@ -1,81 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ScrollableArea, ExpandableButton, FormField } from '../../components';
-
-export default class BibliographyListView extends Component {
-  onFieldChange = (event) => {
-    const fieldName = event.target.name;
-    const fieldValue = event.target.value;
-
-    this.props.onChange(fieldName, fieldValue);
-  }
-
-  render() {
-    const {
-      bibliography,
-      selectBib,
-      deleteBib,
-      started,
-      name,
-      onChange,
-      submitName
-    } = this.props;
-
-    return (
-      <div style={styles.body}>
-        <h1 style={styles.header}>inCite</h1>
-        { started ? (
-          <div style={styles.createBibliographyDiv}>
-            <input
-              type="text"
-              name="name"
-              placeholder="Name your bibliography"
-              value={name}
-              onChange={this.onFieldChange}
-              style={styles.bibliographyNameField}
-            />
-            <br />
-            <Button
-              onClick={submitName}
-              style={styles.createButton}
-            >
-              Create
-            </Button>
-          </div>
-        ) : (
-          <Button
-            onClick={() => onChange('started', true)}
-            style={styles.startButton}
-          >
-            Start a new citation
-          </Button>
-        )}
-
-
-        <ScrollableArea
-          width={250}
-          height={240}
-          borderWidth={0}
-        >
-          <div style={styles.container}>
-            {bibliography.map(bib => (
-              <ExpandableButton
-                width={200}
-                  height={34}
-                fontSize={14}
-                margin={10}
-                hoverable
-                onClick={() => selectBib(bib)}
-                style={styles.button}
-              >
-                {bib}
-              </ExpandableButton>
-            ))}
-          </div>
-        </ScrollableArea>
-      </div>
-    );
-  }
-}
+import { Button, ScrollableArea, ExpandableButton } from '../../components';
 
 const styles = {
   body: {
@@ -86,7 +10,7 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   header: {
     width: '100%',
@@ -134,12 +58,93 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    alignContent: 'flex-start'
+    alignContent: 'flex-start',
   },
   button: {
     backgroundColor: '#e5ac34',
     color: 'white',
     fontFamily: 'Nunito Sans',
-    border: 'none'
+    border: 'none',
   },
+};
+
+export default class BibliographyListView extends Component {
+  onFieldChange = (event) => {
+    const fieldName = event.target.name;
+    const fieldValue = event.target.value;
+
+    const { onChange } = this.props;
+    onChange(fieldName, fieldValue);
+  }
+
+  render() {
+    const {
+      bibliography,
+      selectBib,
+      deleteBib,
+      started,
+      name,
+      onChange,
+      submitName
+    } = this.props;
+
+    return (
+      <div style={styles.body}>
+        <h1 style={styles.header}>inCite</h1>
+        { started ? (
+          <div style={styles.createBibliographyDiv}>
+            <style dangerouslySetInnerHTML={{
+              __html: 'input::placeholder { color: #C3790B; }'
+            }}
+            />
+            <input
+              type="text"
+              name="name"
+              placeholder="Name your bibliography"
+              value={name}
+              onChange={this.onFieldChange}
+              style={styles.bibliographyNameField}
+            />
+            <br />
+            <Button
+              onClick={submitName}
+              style={styles.createButton}
+            >
+              Create
+            </Button>
+          </div>
+        ) : (
+          <Button
+            onClick={() => onChange('started', true)}
+            style={styles.startButton}
+          >
+            Start a new citation
+          </Button>
+        )}
+
+
+        <ScrollableArea
+          width={250}
+          height={240}
+          borderWidth={0}
+        >
+          <div style={styles.container}>
+            {bibliography.map(bib => (
+              <ExpandableButton
+                width={200}
+                height={34}
+                fontSize={14}
+                margin={10}
+                hoverable
+                onClick={() => selectBib(bib)}
+                style={styles.button}
+              >
+                {bib}
+              </ExpandableButton>
+            ))}
+          </div>
+        </ScrollableArea>
+      </div>
+    );
+  }
 }
