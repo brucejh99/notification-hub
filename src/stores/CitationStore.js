@@ -1,7 +1,7 @@
 /* global chrome */
 import { types } from 'mobx-state-tree';
 import {
-  toAPA, toMLA, toChicago, toHarvard,
+  formatForConverter, toAPA, toMLA, toChicago, toHarvard,
 } from '../services/Converter';
 
 const CitationStoreModel = types
@@ -100,10 +100,11 @@ const CitationStoreModel = types
         url: self.url,
         id: self.id,
       };
-      citation.apa = toAPA(citation);
-      citation.mla = toMLA(citation);
-      citation.chicago = toChicago(citation);
-      citation.harvard = toHarvard(citation);
+      const formattedCitation = formatForConverter(citation);
+      citation.apa = toAPA(formattedCitation);
+      citation.mla = toMLA(formattedCitation);
+      citation.chicago = toChicago(formattedCitation);
+      citation.harvard = toHarvard(formattedCitation);
       return citation;
     },
   }));

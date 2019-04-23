@@ -5,7 +5,7 @@ import uuid from 'uuid/v4';
 import { observer, inject } from 'mobx-react';
 import BibliographyView from '../views/BibliographyView';
 import {
-  toAPA, toMLA, toChicago, toHarvard,
+  formatForConverter, toAPA, toMLA, toChicago, toHarvard,
 } from '../../services/Converter';
 import { getCorrectedCurrentDate } from '../../services/Utils';
 
@@ -53,10 +53,11 @@ class BibliographyPage extends Component {
           dateRetrieved: getCorrectedCurrentDate(),
           id: uuid(),
         };
-        citation.apa = toAPA(citation);
-        citation.mla = toMLA(citation);
-        citation.chicago = toChicago(citation);
-        citation.harvard = toHarvard(citation);
+        const formattedCitation = formatForConverter(citation);
+        citation.apa = toAPA(formattedCitation);
+        citation.mla = toMLA(formattedCitation);
+        citation.chicago = toChicago(formattedCitation);
+        citation.harvard = toHarvard(formattedCitation);
         bibliography.addCitation(citation);
       });
     });

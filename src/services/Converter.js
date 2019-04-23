@@ -7,7 +7,7 @@ const monthName = ['January', 'February', 'March', 'April', 'May', 'June',
 
 // Takes the citation data and replaces angle brackets to prevent html tags from
 // displaying, also removes empty author strings and trims
-function replaceAngleBrackets(data) {
+export function formatForConverter(data) {
   const newData = {};
   newData.authors = data.authors.filter(author => author.length > 0)
     .map(author => author.trim().replace(/</g, '&lt;'));
@@ -96,7 +96,7 @@ export function toAPA(data) {
   let citation = '';
   const {
     authors, date, publisher, title, dateAccessed, url,
-  } = replaceAngleBrackets(data);
+  } = data;
 
   if (authors.length > 0) {
     citation += formatAuthorsAPA(authors);
@@ -179,7 +179,7 @@ export function toMLA(data) {
   let citation = '';
   const {
     authors, date, publisher, website, title, url,
-  } = replaceAngleBrackets(data);
+  } = data;
 
   if (authors.length > 0) {
     citation += formatAuthorsMLA(authors);
@@ -292,7 +292,7 @@ export function toChicago(data) {
   let citation = '';
   const {
     authors, date, publisher, website, title, dateAccessed, url,
-  } = replaceAngleBrackets(data);
+  } = data;
 
   if (authors.length > 0) {
     citation += formatAuthorsChicago(authors);
@@ -369,7 +369,7 @@ export function toHarvard(data) {
   let citation = '';
   const {
     authors, date, website, title, dateAccessed, url,
-  } = replaceAngleBrackets(data);
+  } = data;
 
   if (authors.length > 0) {
     citation += formatAuthorsHarvard(authors);
