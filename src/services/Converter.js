@@ -30,7 +30,7 @@ function formatAuthorLastFirstInitial(author) {
 
   const nameArr = author.split(' ');
   if (nameArr.length === 1) {
-    authorString += `${nameArr[0]}.`;
+    authorString += `${nameArr[0]}`;
   } else {
     authorString += `${nameArr[nameArr.length - 1]}, `;
     for (let i = 0; i < nameArr.length - 1; i++) {
@@ -74,7 +74,7 @@ function formatAuthorsAPA(authors) {
   let authorsString = '';
 
   for (let i = 0; i < 6 && i < authors.length - 1; i++) {
-    authorsString += `${formatAuthorLastFirstInitial(authors[i])}., `;
+    authorsString += `${formatAuthorLastFirstInitial(authors[i])}, `;
   }
 
   if (authors.length > 1 && authors.length <= 7) {
@@ -354,7 +354,7 @@ function formatAuthorsHarvard(authors) {
   }
 
   if (authors.length > 1) {
-    authorsString += `${formatAuthorLastFirstInitial(authors[authors.length - 2])}. and `;
+    authorsString += `${formatAuthorLastFirstInitial(authors[authors.length - 2])} and `;
   }
   authorsString += `${formatAuthorLastFirstInitial(authors[authors.length - 1])}, `;
   return authorsString;
